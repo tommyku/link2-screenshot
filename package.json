@@ -1,0 +1,8 @@
+{
+  "name": "webpage-screenshot-test",
+  "version": "0.0.1",
+  "dependencies": {
+    "phantomjs": "^2.1.7",
+    "webpage": "^0.3.0"
+  }
+}
