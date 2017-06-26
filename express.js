@@ -1,10 +1,26 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var childProcess = require('child_process');
+var uuidv4 = require('uuid/v4');
 var app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.post('/screenshot', function (req, res) {
+  var url = req.body.hasOwnProperty('url') ? req.body.url : 'https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm';
+  var fileName = uuidv4();
+  childProcess.exec('./bin/capture '+url+' '+fileName, function(error, stdout, stderr) {
+    console.log(error, stdout, stderr);
+  });
+  res.send(fileName);
+});
+
 app.get('/screenshot', function (req, res) {
-  var url = req.query.hasOwnProperty('url') ? req.query.url : 'https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm';
-  res.send(url);
-})
+  res.send('shit');
+});
 
 var server = app.listen(8081, function () {
    var host = server.address().address

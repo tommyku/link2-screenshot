@@ -1,0 +1,3 @@
+#!/bin/bash
+
+phantomjs rasterize.js $1 "public/$2.jpg" "1280px*720px"
