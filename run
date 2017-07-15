@@ -1,6 +1,0 @@
-echo "Adding `pwd` to PATH so it can find the webdriver"
-export PATH="$PATH:`pwd`"
-
-echo 'Capturing screenshot...'
-
-ruby capture.rb
