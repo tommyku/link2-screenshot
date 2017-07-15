@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var childProcess = require('child_process');
 var uuidv4 = require('uuid/v4');
+var fs = require('fs');
+var path = require('path');
 var app = express();
 
 app.use(bodyParser.json());
@@ -16,7 +18,16 @@ app.post('/screenshot', function (req, res) {
   res.send(fileName);
 });
 
-app.get('/screenshot', function (req, res) {
+app.get('/screenshot/:id', function (req, res) {
+  var id = req.params.id || '';
+  var fileName = path.resolve('./public/'+id+'.jpg');
+  console.log(fileName);
+  console.log(fs.existsSync(fileName));
+  if (fs.existsSync(fileName)) {
+    res.sendFile(fileName);
+  } else {
+    res.send('no');
+  }
 });
 
 var server = app.listen(8080, function () {
