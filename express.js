@@ -12,18 +12,15 @@ app.use(bodyParser.urlencoded({
 app.post('/screenshot', function (req, res) {
   var url = req.body.hasOwnProperty('url') ? req.body.url : 'https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm';
   var fileName = uuidv4();
-  childProcess.exec('./bin/capture '+url+' '+fileName, function(error, stdout, stderr) {
-    console.log(error, stdout, stderr);
-  });
+  childProcess.exec('npm run capture -- "'+url+'" "public/'+fileName+'.jpg" "1280px*720px"');
   res.send(fileName);
 });
 
 app.get('/screenshot', function (req, res) {
-  res.send('shit');
 });
 
-var server = app.listen(8081, function () {
+var server = app.listen(8080, function () {
    var host = server.address().address
    var port = server.address().port
-   console.log("Example app listening at http://%s:%s", host, port)
+   console.log("Fucking listening at http://%s:%s", host, port)
 })
