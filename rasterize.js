@@ -40,6 +40,9 @@ if (system.args.length < 3 || system.args.length > 5) {
             console.log('Unable to load the address!');
             phantom.exit(1);
         } else {
+            page.evaluate(function() {
+              document.documentElement.style.backgroundColor = 'white';
+            });
             window.setTimeout(function () {
                 page.render(output);
                 phantom.exit();
