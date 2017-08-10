@@ -15,14 +15,12 @@ app.post('/screenshot', function (req, res) {
   var url = req.body.hasOwnProperty('url') ? req.body.url : 'https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm';
   var fileName = uuidv4();
   childProcess.exec('npm run capture -- "'+url+'" "public/'+fileName+'.jpg" "1280px*720px"');
-  res.send(fileName);
+  res.status(202).send(fileName);
 });
 
 app.get('/screenshot/:id', function (req, res) {
   var id = req.params.id || '';
   var fileName = path.resolve('./public/'+id+'.jpg');
-  console.log(fileName);
-  console.log(fs.existsSync(fileName));
   if (fs.existsSync(fileName)) {
     res.sendFile(fileName);
   } else {
