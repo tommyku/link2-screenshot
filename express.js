@@ -12,10 +12,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/screenshot', function (req, res) {
-  var url = req.body.hasOwnProperty('url') ? req.body.url : 'https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm';
-  var fileName = uuidv4();
-  childProcess.exec('npm run capture -- "'+url+'" "public/'+fileName+'.jpg" "1280px*720px"');
-  res.status(202).send(fileName);
+  var url = req.body.hasOwnProperty('url') ? req.body.url : null;
+  if (url) {
+    var fileName = uuidv4();
+    childProcess.exec('npm run capture -- "'+url+'" "public/'+fileName+'.jpg" "1280px*720px"');
+    res.status(202).send(fileName);
+  } else {
+    res.status(400).send('no');
+  }
 });
 
 app.get('/screenshot/:id', function (req, res) {
