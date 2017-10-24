@@ -5,21 +5,17 @@ FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -y update && \
-    apt-get install -y --no-install-recommends curl bzip2
+    apt-get install -y --no-install-recommends curl bzip2 ca-certificates
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 RUN apt-get -y update && \
-    apt-get install -y --no-install-recommends nodejs npm apt-utils locales fonts-noto-cjk fonts-noto libfontconfig && \
+    apt-get install -y --no-install-recommends nodejs apt-utils locales fonts-noto-cjk fonts-noto libfontconfig && \
     rm -rf /var/lib/apt/lists/*
 
 RUN localedef -i en_HK -c -f UTF-8 -A /usr/share/locale/locale.alias en_HK.UTF-8
 
 ENV LANG en_HK.utf8
-
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
-RUN npm install -g npm
 
 # Setup for the project
 
